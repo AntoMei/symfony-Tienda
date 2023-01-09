@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ApiController extends AbstractController
 {
     #[Route('/show/{id}', name: 'api-show',  methods: ['GET'])]
-    public function show(ManagerRegistry $doctrine, $id): JsonResponse
+    public function get(ManagerRegistry $doctrine, $id): JsonResponse
     {
         $repository = $doctrine->getRepository(Product::class);
         $product = $repository->find($id);
