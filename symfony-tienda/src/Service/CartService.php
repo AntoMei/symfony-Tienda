@@ -26,9 +26,23 @@ class CartService{
     public function add(int $id, int $quantity = 1){
         //https://symfony.com/doc/current/session.html
         $cart = $this->getCart();
-        $cart[$id] = $quantity;
+        //Sólo añadimos si no lo está 
+        if (!array_key_exists($id, $cart))
+            $cart[$id] = $quantity;
         $this->getSession()->set(self::KEY, $cart);
 
     }
-   
+    public function update(int $id, int $quantity = 1){
+        $cart = $this->getCart();
+        $cart[$id] = $quantity;
+        $this->getSession()->set(self::KEY, $cart);
+    }
+    public function delete(int $id){
+        $cart = $this->getCart();
+        unset($cart[$id]);
+        $this->getSession()->set(self::KEY, $cart);
+    }
+    public function totalItems(){
+        return array_sum($this->getCart());
+    }
 }
